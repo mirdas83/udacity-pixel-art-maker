@@ -5,19 +5,31 @@ $(document).ready(function() {
   // Select size input
   const inputHeight = $('#input_height');
   const inputWidth = $('#input_width');
+  
+  $(".alert").hide();
 
   // When size is submitted by the user, call makeGrid()
   $('#sizePicker').on("submit", function(event) {
-    event.preventDefault();
-    makeGrid();
+
+    // Form validation
+    if (inputWidth.val() > 50 || inputHeight.val() > 50) {
+      event.preventDefault();
+      $(".alert").show();
+    } else {
+      event.preventDefault();
+      $(".alert").hide();
+      makeGrid();
+    }
+
   });
 
   function makeGrid() {
+
     $('#pixel_canvas').empty();
     for (let i = 0; i < inputHeight.val(); i++) {
-      $('#pixel_canvas').append('<tr id="tr_' + (i + 1) + '"></tr>');
+      $('#pixel_canvas').append('<tr id="row_' + (i + 1) + '"></tr>');
       for (let j = 0; j < inputWidth.val(); j++) {
-        $('#tr_' + (i + 1)).append('<td name="mainColor"></td>');
+        $('#row_' + (i + 1)).append('<td name="col_' + (j + 1) + '"></td>');
       }
     }
 
